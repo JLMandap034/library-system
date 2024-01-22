@@ -12,6 +12,9 @@
                     @if (session('user-updated'))
                         <x-auth-session-status class="mb-4" :status="session('user-updated')" />
                     @endif
+                    @if (session('error'))
+                        <x-auth-session-status class="mb-4 py-6" :status="session('error')" />
+                    @endif
 
                     @include('users.partials.update-user')
                 </div>

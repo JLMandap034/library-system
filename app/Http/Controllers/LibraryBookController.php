@@ -45,7 +45,7 @@ class LibraryBookController extends Controller
             
             return redirect()->back()->with('library-updated', 'Library Book Added!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('library-not-updated', 'Library Book Not Added!');
+            return redirect()->back()->with('error', 'Library Book Not Added!');
         }
     }
 

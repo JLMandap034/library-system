@@ -16,13 +16,17 @@ class LibraryUserController extends Controller
             
             return redirect()->back()->with('library-updated', 'Library User Added!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('library-not-updated', 'Library User Not Added!');
+            return redirect()->back()->with('error', 'Library User Not Added!');
         }
     }
 
     public function remove(LibraryUser $libraryUser) {
-        $libraryUser->delete();
-
-        return redirect()->back()->with('library-updated', 'Library User Removed!');
+        try {
+            $libraryUser->delete();
+    
+            return redirect()->back()->with('library-updated', 'Library User Removed!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Library User Not Added!');
+        }
     }
 }

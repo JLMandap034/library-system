@@ -36,10 +36,14 @@ class LibraryController extends Controller
      */
     public function store(StoreLibraryRequest $request)
     {
-        $data = $request->all();
-        Library::create($data)->save();
-
-        return redirect()->route('libraries.index')->with('library-created', 'Library Created!');
+        try {
+            $data = $request->all();
+            Library::create($data)->save();
+    
+            return redirect()->route('libraries.index')->with('library-created', 'Library Created!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -64,10 +68,14 @@ class LibraryController extends Controller
      */
     public function update(UpdateLibraryRequest $request, Library $library)
     {
-        $data = $request->all();
-        $library->update($data);
-
-        return redirect()->route('libraries.edit', $library)->with('library-updated', 'Library Updated!');
+        try {
+            $data = $request->all();
+            $library->update($data);
+    
+            return redirect()->route('libraries.edit', $library)->with('library-updated', 'Library Updated!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -75,15 +83,23 @@ class LibraryController extends Controller
      */
     public function destroy(Library $library)
     {
-        $library->delete();
-        
-        return redirect()->route('libraries.index')->with('library-deleted', 'Library Deleted!');
+        try {
+            $library->delete();
+            
+            return redirect()->route('libraries.index')->with('library-deleted', 'Library Deleted!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     public function restore(Library $library)
     {
-        $library->withTrashed()->restore();
-        
-        return redirect()->route('libraries.index')->with('library-restored', 'Library Restored!');
+        try {
+            $library->withTrashed()->restore();
+            
+            return redirect()->route('libraries.index')->with('library-restored', 'Library Restored!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 }

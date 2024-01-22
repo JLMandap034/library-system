@@ -34,10 +34,14 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $data = $request->all();
-        Book::create($data)->save();
-
-        return redirect()->route('books.index')->with('book-created', 'Book Created!');
+        try {
+            $data = $request->all();
+            Book::create($data)->save();
+    
+            return redirect()->route('books.index')->with('book-created', 'Book Created!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -55,10 +59,14 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        $data = $request->all();
-        $book->update($data);
+        try {
+            $data = $request->all();
+            $book->update($data);
 
-        return redirect()->route('books.edit', $book)->with('book-updated', 'Book Updated!');
+            return redirect()->route('books.edit', $book)->with('book-updated', 'Book Updated!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     /**
@@ -66,15 +74,23 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->delete();
-        
-        return redirect()->route('books.index')->with('book-deleted', 'Book Deleted!');
+        try {
+            $book->delete();
+            
+            return redirect()->route('books.index')->with('book-deleted', 'Book Deleted!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 
     public function restore(Book $book)
     {
-        $book->withTrashed()->restore();
-        
-        return redirect()->route('books.index')->with('book-restored', 'Book Restored!');
+        try {
+            $book->withTrashed()->restore();
+            
+            return redirect()->route('books.index')->with('book-restored', 'Book Restored!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
 }

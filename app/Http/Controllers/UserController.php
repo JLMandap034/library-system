@@ -39,14 +39,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $data = $request->all();
-        if (!isset($data['password'])) {
-            $data = $request->except(['password', 'password_confirmation']);
-        } else {
-            $data['password'] = Hash::make($validated['password']);
-        }
-        $user->update($data);
+        try {
+            $data = $request->all();
+            if (!isset($data['password'])) {
+                $data = $request->except(['password', 'password_confirmation']);
+            } else {
+                $data['password'] = Hash::make($validated['password']);
+            }
+            $user->update($data);
 
-        return redirect()->route('users.edit', $user)->with('user-updated', 'User Updated!');
+            return redirect()->route('users.edit', $user)->with('user-updated', 'User Updated!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Library User Not Added!');
+        }
     }
 }

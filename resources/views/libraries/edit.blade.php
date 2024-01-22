@@ -12,8 +12,8 @@
                     @if (session('library-updated'))
                         <x-auth-session-status class="mb-4" :status="session('library-updated')" />
                     @endif
-                    @if (session('library-not-updated'))
-                        <x-auth-session-status class="mb-4" :status="session('library-not-updated')" />
+                    @if (session('error'))
+                        <x-auth-session-status class="mb-4" :status="session('error')" />
                     @endif
                     @if (session('book-returned'))
                         <x-auth-session-status class="mb-4" :status="session('book-returned')" />

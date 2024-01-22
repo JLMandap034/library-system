@@ -12,6 +12,9 @@
                     @if (session('book-updated'))
                         <x-auth-session-status class="mb-4" :status="session('book-updated')" />
                     @endif
+                    @if (session('error'))
+                        <x-auth-session-status class="mb-4 py-6" :status="session('error')" />
+                    @endif
 
                     @include('books.partials.update-book')
                 </div>

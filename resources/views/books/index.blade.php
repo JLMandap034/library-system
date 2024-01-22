@@ -23,6 +23,9 @@
                     @if (session('book-restored'))
                         <x-auth-session-status class="mb-4 py-6" :status="session('book-restored')" />
                     @endif
+                    @if (session('error'))
+                        <x-auth-session-status class="mb-4 py-6" :status="session('error')" />
+                    @endif
 
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
