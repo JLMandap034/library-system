@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BookController;
+use App\Http\Resources\BookCollection;
+use App\Models\Book;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::name('api.')->namespace('API')->group(function() {
-    Route::post('books', [BookController::class, 'books'])->name('client.store');
+    Route::post('books', function () {
+        return BookCollection::collection(Book::all())->response();
+    });
 });

@@ -2,7 +2,7 @@
 <div x-data="{
             datePickerOpen: false,
             datePickerValue: '',
-            datePickerFormat: 'M d, Y',
+            datePickerFormat: 'F d, Y',
             datePickerMonth: '',
             datePickerYear: '',
             datePickerDay: '',
@@ -65,7 +65,7 @@
             let formattedMonthShortName = this.datePickerMonthNames[date.getMonth()].substring(0, 3);
             let formattedMonthInNumber = ('0' + (parseInt(date.getMonth()) + 1)).slice(-2);
             let formattedYear = date.getFullYear();
-            if (this.datePickerFormat === 'M d, Y') {
+            if (this.datePickerFormat === 'F d, Y') {
                 return `${formattedMonthShortName} ${formattedDate}, ${formattedYear}`;
             }
             if (this.datePickerFormat === 'MM-DD-YYYY') {

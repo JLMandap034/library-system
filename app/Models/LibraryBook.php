@@ -34,7 +34,7 @@ class LibraryBook extends Model
     public function latestBorrowedDate () {
         if ($this->user_id) {
             $borrower = $this->histories->first();
-            return date('M d, Y @ h:i:s A', strtotime($borrower->borrowed_at));
+            return date('F d, Y @ h:i:s A', strtotime($borrower->borrowed_at));
         }
 
         return 'None';
