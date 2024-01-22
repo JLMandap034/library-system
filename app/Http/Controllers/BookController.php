@@ -40,7 +40,7 @@ class BookController extends Controller
     
             return redirect()->route('books.index')->with('book-created', 'Book Created!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('books.index')->with('error', 'Something went wrong!');
         }
     }
 
@@ -65,7 +65,7 @@ class BookController extends Controller
 
             return redirect()->route('books.edit', $book)->with('book-updated', 'Book Updated!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('books.edit', $book)->with('error', 'Something went wrong!');
         }
     }
 
@@ -79,7 +79,7 @@ class BookController extends Controller
             
             return redirect()->route('books.index')->with('book-deleted', 'Book Deleted!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('books.index')->with('error', 'Something went wrong!');
         }
     }
 
@@ -90,7 +90,7 @@ class BookController extends Controller
             
             return redirect()->route('books.index')->with('book-restored', 'Book Restored!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('books.index')->with('error', 'Something went wrong!');
         }
     }
 }

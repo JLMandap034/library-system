@@ -14,6 +14,10 @@ class LibraryUser extends Model
         'user_id',
     ];
 
+    public function library() {
+        return $this->belongsTo(Library::class);
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

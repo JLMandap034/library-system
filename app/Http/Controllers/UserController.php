@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,7 +49,7 @@ class UserController extends Controller
 
             return redirect()->route('users.edit', $user)->with('user-updated', 'User Updated!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Library User Not Added!');
+            return redirect()->route('users.edit', $user)->with('error', 'Library User Not Added!');
         }
     }
 }

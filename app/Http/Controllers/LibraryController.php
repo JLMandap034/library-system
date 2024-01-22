@@ -42,7 +42,7 @@ class LibraryController extends Controller
     
             return redirect()->route('libraries.index')->with('library-created', 'Library Created!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('libraries.index')->with('error', 'Something went wrong!');
         }
     }
 
@@ -74,7 +74,7 @@ class LibraryController extends Controller
     
             return redirect()->route('libraries.edit', $library)->with('library-updated', 'Library Updated!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('libraries.edit', $library)->with('error', 'Something went wrong!');
         }
     }
 
@@ -88,7 +88,7 @@ class LibraryController extends Controller
             
             return redirect()->route('libraries.index')->with('library-deleted', 'Library Deleted!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('libraries.index')->with('error', 'Something went wrong!');
         }
     }
 
@@ -99,7 +99,7 @@ class LibraryController extends Controller
             
             return redirect()->route('libraries.index')->with('library-restored', 'Library Restored!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong!');
+            return redirect()->route('libraries.index')->with('error', 'Something went wrong!');
         }
     }
 }

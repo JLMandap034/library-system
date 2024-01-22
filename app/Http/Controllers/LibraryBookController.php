@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLibraryBookRequest;
-use App\Http\Requests\UpdateLibraryBookRequest;
 use App\Models\Book;
 use App\Models\Library;
 use App\Models\LibraryBook;
@@ -43,27 +41,33 @@ class LibraryBookController extends Controller
         try {
             $libraryBook = $library->libraryBooks()->create($request->all());
             
-            return redirect()->back()->with('library-updated', 'Library Book Added!');
+            return redirect()->route('libraries.edit', $library)->with('library-updated', 'Library Book Added!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Library Book Not Added!');
+            return redirect()->route('libraries.edit', $library)->with('error', 'Library Book Not Added!');
         }
     }
 
     public function return(LibraryBook $libraryBook) {
-        $libraryBook->update([
-            'user_id' => null
-        ]);
-
-        $libraryBook->book->histories->first()->update([
-            'returned_at' => now()
-        ]);
-
-        return redirect()->back()->with('book-returned', 'Book Return Successfully!');
+        if ($libraryBook->user_id == auth()->user()->id) {
+            $libraryBook->update([
+                'user_id' => null
+            ]);
+    
+            $libraryBook->book->histories->first()->update([
+                'returned_at' => now()
+            ]);
+    
+            return redirect()->route('library-books.show', $library)->with('book-returned', 'Book Return Successfully!');
+        }
+        return redirect()->route('library-books.show', $library)->with('error', 'Book Return Failed!');
     }
 
     public function remove(LibraryBook $libraryBook) {
-        $libraryBook->delete();
+        if ($libraryBook->user_id == auth()->user()->id) {
+            $libraryBook->delete();
 
-        return redirect()->back()->with('library-updated', 'Library Book Removed!');
+            return redirect()->route('library-books.show', $library)->with('library-updated', 'Library Book Removed!');
+        }
+        return redirect()->route('library-books.show', $library)->with('error', 'Remove Library Book Failed!');
     }
 }
