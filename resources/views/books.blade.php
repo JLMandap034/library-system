@@ -36,17 +36,25 @@
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         @if($item->user_id == auth()->user()->id)
-                                        <a href="{{ route('library-books.return', $item) }}">
-                                            <x-primary-button>
+                                        <form method="POST" action="{{ route('library-books.return', $item) }}" style="display: inline;">
+                                            @csrf
+                                            
+                                            <x-primary-button :href="route('library-books.return', $item)"
+                                                            onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
                                                 {{ __('Return') }}
                                             </x-primary-button>
-                                        </a>
+                                        </form>
                                         @else
-                                        <a href="{{ route('library-books.borrow', $item) }}">
-                                            <x-info-button :disable="!$item->user_id ? '' : __('disabled')">
+                                        <form method="POST" action="{{ route('library-books.borrow', $item) }}" style="display: inline;">
+                                            @csrf
+                                            
+                                            <x-info-button :disable="!$item->user_id ? '' : __('disabled')" :href="route('library-books.borrow', $item)"
+                                                            onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
                                                 {{ __('Borrow') }}
                                             </x-info-button>
-                                        </a>
+                                        </form>
                                         @endif
                                     </td>
                                 </tr>

@@ -32,11 +32,16 @@
                         {{ $item->user->name }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        <a href="{{ route('library-users.remove',  $item) }}">
-                            <x-danger-button type="button">
+                        <form action="#"></form>
+                        <form method="POST" action="{{ route('library-users.remove', $item) }}" style="display: inline;">
+                            @csrf
+                            
+                            <x-danger-button type="button" :href="route('library-users.remove', $item)"
+                                            onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                 {{ __('Remove') }}
                             </x-danger-button>
-                        </a>
+                        </form>
                     </td>
                 </tr>
             @empty
@@ -91,11 +96,15 @@
                        {{ $item->latestBorrower() }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        <a href="{{ route('library-books.return',  $item) }}">
-                            <x-primary-button :disable="$item->user_id ? '' : __('disabled')" type="button">
+                        <form method="POST" action="{{ route('library-books.return', $item) }}" style="display: inline;">
+                            @csrf
+                            
+                            <x-primary-button :disable="$item->user_id ? '' : __('disabled')" :href="route('library-books.return', $item)"
+                                            onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                 {{ __('Mark as Returned') }}
                             </x-primary-button>
-                        </a>
+                        </form>
 
                         <a href="{{ route('books.edit', $item->book) }}">
                             <x-info-button type="button">
@@ -103,11 +112,15 @@
                             </x-info-button>
                         </a>
                         
-                        <a href="{{ route('library-books.remove',  $item) }}">
-                            <x-danger-button type="button">
+                        <form method="POST" action="{{ route('library-books.remove', $item) }}" style="display: inline;">
+                            @csrf
+                            
+                            <x-danger-button :href="route('library-books.remove', $item)"
+                                            onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                 {{ __('Remove') }}
                             </x-danger-button>
-                        </a>
+                        </form>
                     </td>
                 </tr>
             @empty

@@ -48,26 +48,20 @@ class LibraryBookController extends Controller
     }
 
     public function return(LibraryBook $libraryBook) {
-        if ($libraryBook->user_id == auth()->user()->id) {
-            $libraryBook->update([
-                'user_id' => null
-            ]);
-    
-            $libraryBook->book->histories->first()->update([
-                'returned_at' => now()
-            ]);
-    
-            return redirect()->route('library-books.show', $library)->with('book-returned', 'Book Return Successfully!');
-        }
-        return redirect()->route('library-books.show', $library)->with('error', 'Book Return Failed!');
+        $libraryBook->update([
+            'user_id' => null
+        ]);
+
+        $libraryBook->book->histories->first()->update([
+            'returned_at' => now()
+        ]);
+
+        return redirect()->back()->with('book-returned', 'Book Return Successfully!');
     }
 
     public function remove(LibraryBook $libraryBook) {
-        if ($libraryBook->user_id == auth()->user()->id) {
-            $libraryBook->delete();
+        $libraryBook->delete();
 
-            return redirect()->route('library-books.show', $library)->with('library-updated', 'Library Book Removed!');
-        }
-        return redirect()->route('library-books.show', $library)->with('error', 'Remove Library Book Failed!');
+        return redirect()->back()->with('library-updated', 'Library Book Removed!');
     }
 }

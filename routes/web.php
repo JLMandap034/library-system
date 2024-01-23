@@ -41,15 +41,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/books/restore', [BookController::class, 'restore'])->name('books.restore');
 
         Route::post('/library-books/{library}/add', [LibraryBookController::class, 'add'])->name('library-books.add');
-        Route::get('/library-books/remove/{libraryBook}', [LibraryBookController::class, 'remove'])->name('library-books.remove');
+        Route::post('/library-books/remove/{libraryBook}', [LibraryBookController::class, 'remove'])->name('library-books.remove');
 
         Route::post('/library-users/{library}/add', [LibraryUserController::class, 'add'])->name('library-users.add');
-        Route::get('/library-users/remove/{libraryUser}', [LibraryUserController::class, 'remove'])->name('library-users.remove');
+        Route::post('/library-users/remove/{libraryUser}', [LibraryUserController::class, 'remove'])->name('library-users.remove');
     });
     
     Route::get('/library-books/{library}', [LibraryBookController::class, 'show'])->name('library-books.show');
-    Route::get('/library-books/return/{libraryBook}', [LibraryBookController::class, 'return'])->name('library-books.return');
-    Route::get('/library-books/borrow/{libraryBook}', [LibraryBookController::class, 'borrow'])->name('library-books.borrow');
+    Route::post('/library-books/return/{libraryBook}', [LibraryBookController::class, 'return'])->name('library-books.return');
+    Route::post('/library-books/borrow/{libraryBook}', [LibraryBookController::class, 'borrow'])->name('library-books.borrow');
 });
 
 require __DIR__.'/auth.php';
